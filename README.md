@@ -1,5 +1,3 @@
-[![image](https://github.com/henbudidiao/UAV-path-planning/assets/64433060/5182ed12-a0d3-4a69-b0ae-e90552b02f9b)](https://henbudidiao.github.io/)
-
 <a href="https://henbudidiao.github.io/">
 <div align=center>
 <img src="https://github.com/henbudidiao/UAV-path-planning/assets/64433060/5182ed12-a0d3-4a69-b0ae-e90552b02f9b">
