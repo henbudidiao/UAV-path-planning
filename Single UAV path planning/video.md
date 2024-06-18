@@ -1,5 +1,4 @@
-# UAV-path-planning
-UAV path planning based deep reinforcement learning
+# UAV path planning based deep reinforcement learning
 视频演示如下：
 
 
