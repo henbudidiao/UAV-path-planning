@@ -12,6 +12,11 @@
 <img src="https://github.com/user-attachments/assets/0541173a-8f9c-457d-97ef-1240335394a6">
 <img src="https://github.com/user-attachments/assets/eea6111b-5e3b-4986-af88-4c156a4e2971">
 <img src="https://github.com/user-attachments/assets/5bfba222-79b7-4353-92bb-89d76a4490d7">
+<img src="https://github.com/user-attachments/assets/8117fbb5-76da-405f-84c4-a38e55b5c56a">
 </div>
 
+未完待续……
 
+**如需引用上述内容，引用内容若不来自于《中国科学：信息科学》，则请注明来源出处，采用以下的引用格式，请勿侵权。**
+
+引用格式：方城亮. 基于深度强化学习的无人机武器目标分配与航路规划研究[D]. 西北工业大学, 2024.
