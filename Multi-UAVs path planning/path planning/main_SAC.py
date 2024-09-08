@@ -199,284 +199,293 @@ def main():
     run(env)
 def run(env):
     if Switch==0:
-        print('SAC训练中...')
-        all_ep_r = [[] for i in range(TRAIN_NUM)]
-        all_ep_r0 = [[] for i in range(TRAIN_NUM)]
-        all_ep_r1 = [[] for i in range(TRAIN_NUM)]
-        for k in range(TRAIN_NUM):
-            actors = [None for _ in range(N_Agent+M_Enemy)]
-            critics = [None for _ in range(N_Agent+M_Enemy)]
-            entroys = [None for _ in range(N_Agent+M_Enemy)]
-            for i in range(N_Agent+M_Enemy):
-                actors[i] = Actor()
-                critics[i] = Critic()
-                entroys[i] = Entroy()
-            M = Memory(MemoryCapacity, 2 * state_number*(N_Agent+M_Enemy) + action_number*(N_Agent+M_Enemy) + 1*(N_Agent+M_Enemy))
-            ou_noise = Ornstein_Uhlenbeck_Noise(mu=np.zeros(((N_Agent+M_Enemy), action_number)))
-            action=np.zeros(((N_Agent+M_Enemy), action_number))
-            # aaa = np.zeros((N_Agent, state_number))
-            for episode in range(EP_MAX):
-                observation = env.reset()  # 环境重置
-                reward_totle,reward_totle0,reward_totle1 = 0,0,0
-                for timestep in range(EP_LEN):
-                    for i in range(N_Agent+M_Enemy):
-                        action[i] = actors[i].choose_action(observation[i])
-                    # action[0]=actor0.choose_action(observation[0])
-                    # action[1] = actor0.choose_action(observation[1])
-                    if episode <= 20:
-                        noise = ou_noise()
-                    else:
-                        noise = 0
-                    action = action + noise
-                    action = np.clip(action, -max_action, max_action)
-                    observation_, reward,done,win,team_counter= env.step(action)  # 单步交互
-                    M.store_transition(observation.flatten(), action.flatten(), reward.flatten(), observation_.flatten())
-                    # 记忆库存储
-                    # 有的2000个存储数据就开始学习
-                    if M.memory_counter > MemoryCapacity:
-                        b_M = M.sample(BATCH)
-                        b_s = b_M[:, :state_number*(N_Agent+M_Enemy)]
-                        b_a = b_M[:, state_number*(N_Agent+M_Enemy): state_number*(N_Agent+M_Enemy) + action_number*(N_Agent+M_Enemy)]
-                        b_r = b_M[:, -state_number*(N_Agent+M_Enemy) - 1*(N_Agent+M_Enemy): -state_number*(N_Agent+M_Enemy)]
-                        b_s_ = b_M[:, -state_number*(N_Agent+M_Enemy):]
-                        b_s = torch.FloatTensor(b_s)
-                        b_a = torch.FloatTensor(b_a)
-                        b_r = torch.FloatTensor(b_r)
-                        b_s_ = torch.FloatTensor(b_s_)
-                        # if not done[0]:
-                        #     new_action_0, log_prob_0 = actor0.evaluate(b_s_[:, 0:state_number])
-                        #     target_q10, target_q20 = critic0.target_critic_v(b_s_[:, 0:state_number], new_action_0)
-                        #     target_q0 = b_r[:, 0:1] + GAMMA * (1 - b_done[0]) *(torch.min(target_q10, target_q20) - entroy0.alpha * log_prob_0)
-                        #     current_q10, current_q20 = critic0.get_v(b_s[:,0:state_number], b_a[:, 0:action_number*1])
-                        #     critic0.learn(current_q10, current_q20, target_q0.detach())
-                        #     a0, log_prob0 = actor0.evaluate(b_s[:, 0:state_number*1])
-                        #     q10, q20 = critic0.get_v(b_s[:, 0:state_number*1], a0)
-                        #     q0 = torch.min(q10, q20)
-                        #     actor_loss0 = (entroy0.alpha * log_prob0 - q0).mean()
-                        #     alpha_loss0 = -(entroy0.log_alpha.exp() * (
-                        #                     log_prob0 + entroy0.target_entropy).detach()).mean()
-                        #     actor0.learn(actor_loss0)
-                        #     entroy0.learn(alpha_loss0)
-                        #     entroy0.alpha = entroy0.log_alpha.exp()
-                        #     # 软更新
-                        #     critic0.soft_update()
-                        # if not done[1]:
-                        #     new_action_1, log_prob_1 = actor1.evaluate(b_s_[:, state_number:state_number*2])
-                        #     target_q11, target_q21 = critic1.target_critic_v(b_s_[:, state_number:state_number*2], new_action_1)
-                        #     target_q1= b_r[:, 1:2] + GAMMA * (1 - b_done[1])*(torch.min(target_q11, target_q21) - entroy1.alpha * log_prob_1)
-                        #     current_q11, current_q21 = critic1.get_v(b_s[:, state_number:state_number*2], b_a[:, action_number:action_number * 2])
-                        #     critic1.learn(current_q11, current_q21, target_q1.detach())
-                        #     a1, log_prob1 = actor1.evaluate(b_s[:, state_number:state_number*2])
-                        #     q11, q21 = critic1.get_v(b_s[:, state_number:state_number*2], a1)
-                        #     q1 = torch.min(q11, q21)
-                        #     actor_loss1 = (entroy1.alpha * log_prob1 - q1).mean()
-                        #     alpha_loss1 = -(entroy1.log_alpha.exp() * (
-                        #             log_prob1 + entroy1.target_entropy).detach()).mean()
-                        #     actor1.learn(actor_loss1)
-                        #     entroy1.learn(alpha_loss1)
-                        #     entroy1.alpha = entroy1.log_alpha.exp()
-                        #     # 软更新
-                        #     critic1.soft_update()
+        try:
+            assert M_Enemy == 1
+        except:
+            print('程序终止，被逮到~嘿嘿，哥们儿预判到你会犯错，这段程序中变量\'M_Enemy\'的值必须为1，请把它的值改为1。\n' 
+                  '改为1之后程序一定会报错，这是因为组数越界，更改path_env.py文件中的跟随者无人机初始化个数；删除多余的\n'
+                  '求距离函数，即变量dis_1_agent_0_to_3等，以及提到变量dis_1_agent_0_to_3等的地方；删除画无人机轨迹的\n'
+                  '函数；删除step函数的最后一个返回值dis_1_agent_0_to_1；将player.py文件中的变量dt改为1；即可开始训练！\n'
+                  '如果实在不会改也无妨，我会在不久之后出一个视频来手把手教大伙怎么改，可持续关注此项目github中的README文件。\n')
+        else:
+            print('SAC训练中...')
+            all_ep_r = [[] for i in range(TRAIN_NUM)]
+            all_ep_r0 = [[] for i in range(TRAIN_NUM)]
+            all_ep_r1 = [[] for i in range(TRAIN_NUM)]
+            for k in range(TRAIN_NUM):
+                actors = [None for _ in range(N_Agent+M_Enemy)]
+                critics = [None for _ in range(N_Agent+M_Enemy)]
+                entroys = [None for _ in range(N_Agent+M_Enemy)]
+                for i in range(N_Agent+M_Enemy):
+                    actors[i] = Actor()
+                    critics[i] = Critic()
+                    entroys[i] = Entroy()
+                M = Memory(MemoryCapacity, 2 * state_number*(N_Agent+M_Enemy) + action_number*(N_Agent+M_Enemy) + 1*(N_Agent+M_Enemy))
+                ou_noise = Ornstein_Uhlenbeck_Noise(mu=np.zeros(((N_Agent+M_Enemy), action_number)))
+                action=np.zeros(((N_Agent+M_Enemy), action_number))
+                # aaa = np.zeros((N_Agent, state_number))
+                for episode in range(EP_MAX):
+                    observation = env.reset()  # 环境重置
+                    reward_totle,reward_totle0,reward_totle1 = 0,0,0
+                    for timestep in range(EP_LEN):
                         for i in range(N_Agent+M_Enemy):
-                        # # # TODO 方法二
-                        # new_action_0, log_prob_0 = actor0.evaluate(b_s_[:, :state_number])
-                        # new_action_1, log_prob_1 = actor0.evaluate(b_s_[:, state_number:state_number * 2])
-                        # new_action = torch.hstack((new_action_0, new_action_1))
-                        # # new_action = torch.cat((new_action_0, new_action_1),dim=1)
-                        # log_prob_ = (log_prob_0 + log_prob_1) / 2
-                        # # log_prob_=torch.hstack((log_prob_0.mean(axis=1).unsqueeze(dim=1),log_prob_1.mean(axis=1).unsqueeze(dim=1)))
-                        # target_q1, target_q2 = critic0.target_critic_v(b_s_, new_action)
-                        #
-                        # target_q = b_r + GAMMA * (torch.min(target_q1, target_q2) - entroy0.alpha * log_prob_)
-                        #
-                        # current_q1, current_q2 = critic0.get_v(b_s, b_a)
-                        # critic0.learn(current_q1, current_q2, target_q.detach())
-                        # a0, log_prob0 = actor0.evaluate(b_s[:, :state_number])
-                        # a1, log_prob1 = actor0.evaluate(b_s[:, state_number:state_number * 2])
-                        # a = torch.hstack((a0, a1))
-                        # # a = torch.cat((a0, a1),dim=1)
-                        # log_prob = (log_prob0 + log_prob1) / 2
-                        # # log_prob = torch.hstack((log_prob0.mean(axis=1).unsqueeze(dim=1), log_prob1.mean(axis=1).unsqueeze(dim=1)))
-                        # q1, q2 = critic0.get_v(b_s, a)
-                        # q = torch.min(q1, q2)
-                        #
-                        # actor_loss = (entroy0.alpha * log_prob - q).mean()
-                        # alpha_loss = -(entroy0.log_alpha.exp() * (log_prob + entroy0.target_entropy).detach()).mean()
-                        #
-                        # actor0.learn(actor_loss)
-                        # # actor1.learn(actor_loss)
-                        # entroy0.learn(alpha_loss)
-                        # entroy0.alpha = entroy0.log_alpha.exp()
-                        # # 软更新
-                        # critic0.soft_update()
-                            # TODO 方法零
-                            # if not done[i]:
-                            new_action, log_prob_ = actors[i].evaluate(b_s_[:, state_number*i:state_number*(i+1)])
-                            target_q1, target_q2 = critics[i].target_critic_v(b_s_, new_action)
-                            target_q = b_r[:, i:(i+1)] + GAMMA * (torch.min(target_q1, target_q2) - entroys[i].alpha * log_prob_)
-                            current_q1, current_q2 = critics[i].get_v(b_s, b_a[:, action_number*i:action_number*(i+1)])
-                            critics[i].learn(current_q1, current_q2, target_q.detach())
-                            a, log_prob = actors[i].evaluate(b_s[:, state_number*i:state_number*(i+1)])
-                            q1, q2 = critics[i].get_v(b_s, a)
-                            q = torch.min(q1, q2)
-                            actor_loss = (entroys[i].alpha * log_prob - q).mean()
-                            alpha_loss = -(entroys[i].log_alpha.exp() * (
-                                            log_prob + entroys[i].target_entropy).detach()).mean()
-                            actors[i].learn(actor_loss)
-                            entroys[i].learn(alpha_loss)
-                            entroys[i].alpha = entroys[i].log_alpha.exp()
-                            # 软更新
-                            critics[i].soft_update()
-                                # #TODO 方法一
+                            action[i] = actors[i].choose_action(observation[i])
+                        # action[0]=actor0.choose_action(observation[0])
+                        # action[1] = actor0.choose_action(observation[1])
+                        if episode <= 20:
+                            noise = ou_noise()
+                        else:
+                            noise = 0
+                        action = action + noise
+                        action = np.clip(action, -max_action, max_action)
+                        observation_, reward,done,win,team_counter= env.step(action)  # 单步交互
+                        M.store_transition(observation.flatten(), action.flatten(), reward.flatten(), observation_.flatten())
+                        # 记忆库存储
+                        # 有的2000个存储数据就开始学习
+                        if M.memory_counter > MemoryCapacity:
+                            b_M = M.sample(BATCH)
+                            b_s = b_M[:, :state_number*(N_Agent+M_Enemy)]
+                            b_a = b_M[:, state_number*(N_Agent+M_Enemy): state_number*(N_Agent+M_Enemy) + action_number*(N_Agent+M_Enemy)]
+                            b_r = b_M[:, -state_number*(N_Agent+M_Enemy) - 1*(N_Agent+M_Enemy): -state_number*(N_Agent+M_Enemy)]
+                            b_s_ = b_M[:, -state_number*(N_Agent+M_Enemy):]
+                            b_s = torch.FloatTensor(b_s)
+                            b_a = torch.FloatTensor(b_a)
+                            b_r = torch.FloatTensor(b_r)
+                            b_s_ = torch.FloatTensor(b_s_)
+                            # if not done[0]:
+                            #     new_action_0, log_prob_0 = actor0.evaluate(b_s_[:, 0:state_number])
+                            #     target_q10, target_q20 = critic0.target_critic_v(b_s_[:, 0:state_number], new_action_0)
+                            #     target_q0 = b_r[:, 0:1] + GAMMA * (1 - b_done[0]) *(torch.min(target_q10, target_q20) - entroy0.alpha * log_prob_0)
+                            #     current_q10, current_q20 = critic0.get_v(b_s[:,0:state_number], b_a[:, 0:action_number*1])
+                            #     critic0.learn(current_q10, current_q20, target_q0.detach())
+                            #     a0, log_prob0 = actor0.evaluate(b_s[:, 0:state_number*1])
+                            #     q10, q20 = critic0.get_v(b_s[:, 0:state_number*1], a0)
+                            #     q0 = torch.min(q10, q20)
+                            #     actor_loss0 = (entroy0.alpha * log_prob0 - q0).mean()
+                            #     alpha_loss0 = -(entroy0.log_alpha.exp() * (
+                            #                     log_prob0 + entroy0.target_entropy).detach()).mean()
+                            #     actor0.learn(actor_loss0)
+                            #     entroy0.learn(alpha_loss0)
+                            #     entroy0.alpha = entroy0.log_alpha.exp()
+                            #     # 软更新
+                            #     critic0.soft_update()
+                            # if not done[1]:
+                            #     new_action_1, log_prob_1 = actor1.evaluate(b_s_[:, state_number:state_number*2])
+                            #     target_q11, target_q21 = critic1.target_critic_v(b_s_[:, state_number:state_number*2], new_action_1)
+                            #     target_q1= b_r[:, 1:2] + GAMMA * (1 - b_done[1])*(torch.min(target_q11, target_q21) - entroy1.alpha * log_prob_1)
+                            #     current_q11, current_q21 = critic1.get_v(b_s[:, state_number:state_number*2], b_a[:, action_number:action_number * 2])
+                            #     critic1.learn(current_q11, current_q21, target_q1.detach())
+                            #     a1, log_prob1 = actor1.evaluate(b_s[:, state_number:state_number*2])
+                            #     q11, q21 = critic1.get_v(b_s[:, state_number:state_number*2], a1)
+                            #     q1 = torch.min(q11, q21)
+                            #     actor_loss1 = (entroy1.alpha * log_prob1 - q1).mean()
+                            #     alpha_loss1 = -(entroy1.log_alpha.exp() * (
+                            #             log_prob1 + entroy1.target_entropy).detach()).mean()
+                            #     actor1.learn(actor_loss1)
+                            #     entroy1.learn(alpha_loss1)
+                            #     entroy1.alpha = entroy1.log_alpha.exp()
+                            #     # 软更新
+                            #     critic1.soft_update()
+                            for i in range(N_Agent+M_Enemy):
+                            # # # TODO 方法二
+                            # new_action_0, log_prob_0 = actor0.evaluate(b_s_[:, :state_number])
+                            # new_action_1, log_prob_1 = actor0.evaluate(b_s_[:, state_number:state_number * 2])
+                            # new_action = torch.hstack((new_action_0, new_action_1))
+                            # # new_action = torch.cat((new_action_0, new_action_1),dim=1)
+                            # log_prob_ = (log_prob_0 + log_prob_1) / 2
+                            # # log_prob_=torch.hstack((log_prob_0.mean(axis=1).unsqueeze(dim=1),log_prob_1.mean(axis=1).unsqueeze(dim=1)))
+                            # target_q1, target_q2 = critic0.target_critic_v(b_s_, new_action)
+                            #
+                            # target_q = b_r + GAMMA * (torch.min(target_q1, target_q2) - entroy0.alpha * log_prob_)
+                            #
+                            # current_q1, current_q2 = critic0.get_v(b_s, b_a)
+                            # critic0.learn(current_q1, current_q2, target_q.detach())
+                            # a0, log_prob0 = actor0.evaluate(b_s[:, :state_number])
+                            # a1, log_prob1 = actor0.evaluate(b_s[:, state_number:state_number * 2])
+                            # a = torch.hstack((a0, a1))
+                            # # a = torch.cat((a0, a1),dim=1)
+                            # log_prob = (log_prob0 + log_prob1) / 2
+                            # # log_prob = torch.hstack((log_prob0.mean(axis=1).unsqueeze(dim=1), log_prob1.mean(axis=1).unsqueeze(dim=1)))
+                            # q1, q2 = critic0.get_v(b_s, a)
+                            # q = torch.min(q1, q2)
+                            #
+                            # actor_loss = (entroy0.alpha * log_prob - q).mean()
+                            # alpha_loss = -(entroy0.log_alpha.exp() * (log_prob + entroy0.target_entropy).detach()).mean()
+                            #
+                            # actor0.learn(actor_loss)
+                            # # actor1.learn(actor_loss)
+                            # entroy0.learn(alpha_loss)
+                            # entroy0.alpha = entroy0.log_alpha.exp()
+                            # # 软更新
+                            # critic0.soft_update()
+                                # TODO 方法零
+                                # if not done[i]:
+                                new_action, log_prob_ = actors[i].evaluate(b_s_[:, state_number*i:state_number*(i+1)])
+                                target_q1, target_q2 = critics[i].target_critic_v(b_s_, new_action)
+                                target_q = b_r[:, i:(i+1)] + GAMMA * (torch.min(target_q1, target_q2) - entroys[i].alpha * log_prob_)
+                                current_q1, current_q2 = critics[i].get_v(b_s, b_a[:, action_number*i:action_number*(i+1)])
+                                critics[i].learn(current_q1, current_q2, target_q.detach())
+                                a, log_prob = actors[i].evaluate(b_s[:, state_number*i:state_number*(i+1)])
+                                q1, q2 = critics[i].get_v(b_s, a)
+                                q = torch.min(q1, q2)
+                                actor_loss = (entroys[i].alpha * log_prob - q).mean()
+                                alpha_loss = -(entroys[i].log_alpha.exp() * (
+                                                log_prob + entroys[i].target_entropy).detach()).mean()
+                                actors[i].learn(actor_loss)
+                                entroys[i].learn(alpha_loss)
+                                entroys[i].alpha = entroys[i].log_alpha.exp()
+                                # 软更新
+                                critics[i].soft_update()
+                                    # #TODO 方法一
+                                    # new_action_0, log_prob_0 = actors[i].evaluate(b_s_[:, :state_number])
+                                    # new_action_1, log_prob_1 = actors[i].evaluate(b_s_[:, state_number:state_number * 2])
+                                    # new_action = torch.hstack((new_action_0, new_action_1))
+                                    # # new_action = torch.cat((new_action_0, new_action_1),dim=1)
+                                    # # log_prob_ = (log_prob_0 + log_prob_1) / 2
+                                    # # log_prob_=torch.hstack((log_prob_0.mean(axis=1).unsqueeze(dim=1),log_prob_1.mean(axis=1).unsqueeze(dim=1)))
+                                    # target_q1, target_q2 = critics[i].target_critic_v(b_s_, new_action)
+                                    # if i==0:
+                                    #     target_q = b_r[:, i:(i+1)] + GAMMA * (torch.min(target_q1, target_q2) - entroys[i].alpha * log_prob_0)
+                                    # elif i==1:
+                                    #     target_q = b_r[:, i:(i+1)] + GAMMA * (torch.min(target_q1, target_q2) - entroys[i].alpha * log_prob_1)
+                                    # current_q1, current_q2 = critics[i].get_v(b_s, b_a)
+                                    # critics[i].learn(current_q1, current_q2, target_q.detach())
+                                    # a0, log_prob0 = actors[i].evaluate(b_s[:, :state_number])
+                                    # a1, log_prob1 = actors[i].evaluate(b_s[:, state_number:state_number * 2])
+                                    # a = torch.hstack((a0, a1))
+                                    # # a = torch.cat((a0, a1),dim=1)
+                                    # # log_prob = (log_prob0 + log_prob1) / 2
+                                    # # log_prob = torch.hstack((log_prob0.mean(axis=1).unsqueeze(dim=1), log_prob1.mean(axis=1).unsqueeze(dim=1)))
+                                    # q1, q2 = critics[i].get_v(b_s, a)
+                                    # q = torch.min(q1, q2)
+                                    # if i == 0:
+                                    #     actor_loss = (entroys[i].alpha * log_prob0 - q).mean()
+                                    #     alpha_loss = -(entroys[i].log_alpha.exp() * (log_prob0 + entroys[i].target_entropy).detach()).mean()
+                                    # elif i == 1:
+                                    #     actor_loss = (entroys[i].alpha * log_prob1 - q).mean()
+                                    #     alpha_loss = -(entroys[i].log_alpha.exp() * (log_prob1 + entroys[i].target_entropy).detach()).mean()
+                                    # actors[i].learn(actor_loss)
+                                    # entroys[i].learn(alpha_loss)
+                                    # entroys[i].alpha = entroys[i].log_alpha.exp()
+                                    # # 软更新
+                                    # critics[i].soft_update()
+                                # #TODO 方法二
                                 # new_action_0, log_prob_0 = actors[i].evaluate(b_s_[:, :state_number])
                                 # new_action_1, log_prob_1 = actors[i].evaluate(b_s_[:, state_number:state_number * 2])
                                 # new_action = torch.hstack((new_action_0, new_action_1))
-                                # # new_action = torch.cat((new_action_0, new_action_1),dim=1)
-                                # # log_prob_ = (log_prob_0 + log_prob_1) / 2
+                                # log_prob_ = (log_prob_0 + log_prob_1) / 2
                                 # # log_prob_=torch.hstack((log_prob_0.mean(axis=1).unsqueeze(dim=1),log_prob_1.mean(axis=1).unsqueeze(dim=1)))
                                 # target_q1, target_q2 = critics[i].target_critic_v(b_s_, new_action)
-                                # if i==0:
-                                #     target_q = b_r[:, i:(i+1)] + GAMMA * (torch.min(target_q1, target_q2) - entroys[i].alpha * log_prob_0)
-                                # elif i==1:
-                                #     target_q = b_r[:, i:(i+1)] + GAMMA * (torch.min(target_q1, target_q2) - entroys[i].alpha * log_prob_1)
+                                # target_q = b_r + GAMMA * (torch.min(target_q1, target_q2) - entroys[i].alpha * log_prob_)
                                 # current_q1, current_q2 = critics[i].get_v(b_s, b_a)
                                 # critics[i].learn(current_q1, current_q2, target_q.detach())
                                 # a0, log_prob0 = actors[i].evaluate(b_s[:, :state_number])
                                 # a1, log_prob1 = actors[i].evaluate(b_s[:, state_number:state_number * 2])
                                 # a = torch.hstack((a0, a1))
-                                # # a = torch.cat((a0, a1),dim=1)
-                                # # log_prob = (log_prob0 + log_prob1) / 2
+                                # log_prob = (log_prob0 + log_prob1) / 2
                                 # # log_prob = torch.hstack((log_prob0.mean(axis=1).unsqueeze(dim=1), log_prob1.mean(axis=1).unsqueeze(dim=1)))
                                 # q1, q2 = critics[i].get_v(b_s, a)
                                 # q = torch.min(q1, q2)
-                                # if i == 0:
-                                #     actor_loss = (entroys[i].alpha * log_prob0 - q).mean()
-                                #     alpha_loss = -(entroys[i].log_alpha.exp() * (log_prob0 + entroys[i].target_entropy).detach()).mean()
-                                # elif i == 1:
-                                #     actor_loss = (entroys[i].alpha * log_prob1 - q).mean()
-                                #     alpha_loss = -(entroys[i].log_alpha.exp() * (log_prob1 + entroys[i].target_entropy).detach()).mean()
+                                # actor_loss = ( entroys[i].alpha * log_prob - q).mean()
                                 # actors[i].learn(actor_loss)
+                                # alpha_loss = -( entroys[i].log_alpha.exp() * (log_prob +  entroys[i].target_entropy).detach()).mean()
                                 # entroys[i].learn(alpha_loss)
-                                # entroys[i].alpha = entroys[i].log_alpha.exp()
+                                # entroys[i].alpha =  entroys[i].log_alpha.exp()
                                 # # 软更新
                                 # critics[i].soft_update()
-                            # #TODO 方法二
-                            # new_action_0, log_prob_0 = actors[i].evaluate(b_s_[:, :state_number])
-                            # new_action_1, log_prob_1 = actors[i].evaluate(b_s_[:, state_number:state_number * 2])
-                            # new_action = torch.hstack((new_action_0, new_action_1))
-                            # log_prob_ = (log_prob_0 + log_prob_1) / 2
+                            # new_action_0, log_prob_0 = actor.evaluate(b_s_[:, :state_number])
+                            # new_action_1, log_prob_1 = actor.evaluate(b_s_[:, state_number:state_number*2])
+                            # new_action=torch.hstack((new_action_0,new_action_1))
+                            # log_prob_=(log_prob_0+log_prob_1)/2
                             # # log_prob_=torch.hstack((log_prob_0.mean(axis=1).unsqueeze(dim=1),log_prob_1.mean(axis=1).unsqueeze(dim=1)))
-                            # target_q1, target_q2 = critics[i].target_critic_v(b_s_, new_action)
-                            # target_q = b_r + GAMMA * (torch.min(target_q1, target_q2) - entroys[i].alpha * log_prob_)
-                            # current_q1, current_q2 = critics[i].get_v(b_s, b_a)
-                            # critics[i].learn(current_q1, current_q2, target_q.detach())
-                            # a0, log_prob0 = actors[i].evaluate(b_s[:, :state_number])
-                            # a1, log_prob1 = actors[i].evaluate(b_s[:, state_number:state_number * 2])
+                            # target_q1,target_q2=critic.target_critic_v(b_s_,new_action)
+                            # target_q=b_r+GAMMA*(torch.min(target_q1,target_q2)-entroy.alpha*log_prob_)
+                            # current_q1, current_q2 = critic.get_v(b_s, b_a)
+                            # critic.learn(current_q1,current_q2,target_q.detach())
+                            # a0,log_prob0=actor.evaluate(b_s[:, :state_number])
+                            # a1, log_prob1 = actor.evaluate(b_s[:, state_number:state_number*2])
                             # a = torch.hstack((a0, a1))
-                            # log_prob = (log_prob0 + log_prob1) / 2
+                            # log_prob=(log_prob0+log_prob1)/2
                             # # log_prob = torch.hstack((log_prob0.mean(axis=1).unsqueeze(dim=1), log_prob1.mean(axis=1).unsqueeze(dim=1)))
-                            # q1, q2 = critics[i].get_v(b_s, a)
-                            # q = torch.min(q1, q2)
-                            # actor_loss = ( entroys[i].alpha * log_prob - q).mean()
-                            # actors[i].learn(actor_loss)
-                            # alpha_loss = -( entroys[i].log_alpha.exp() * (log_prob +  entroys[i].target_entropy).detach()).mean()
-                            # entroys[i].learn(alpha_loss)
-                            # entroys[i].alpha =  entroys[i].log_alpha.exp()
+                            # q1,q2=critic.get_v(b_s,a)
+                            # q=torch.min(q1,q2)
+                            # actor_loss = (entroy.alpha * log_prob - q).mean()
+                            # actor.learn(actor_loss)
+                            # alpha_loss = -(entroy.log_alpha.exp() * (log_prob + entroy.target_entropy).detach()).mean()
+                            # entroy.learn(alpha_loss)
+                            # entroy.alpha=entroy.log_alpha.exp()
                             # # 软更新
-                            # critics[i].soft_update()
-                        # new_action_0, log_prob_0 = actor.evaluate(b_s_[:, :state_number])
-                        # new_action_1, log_prob_1 = actor.evaluate(b_s_[:, state_number:state_number*2])
-                        # new_action=torch.hstack((new_action_0,new_action_1))
-                        # log_prob_=(log_prob_0+log_prob_1)/2
-                        # # log_prob_=torch.hstack((log_prob_0.mean(axis=1).unsqueeze(dim=1),log_prob_1.mean(axis=1).unsqueeze(dim=1)))
-                        # target_q1,target_q2=critic.target_critic_v(b_s_,new_action)
-                        # target_q=b_r+GAMMA*(torch.min(target_q1,target_q2)-entroy.alpha*log_prob_)
-                        # current_q1, current_q2 = critic.get_v(b_s, b_a)
-                        # critic.learn(current_q1,current_q2,target_q.detach())
-                        # a0,log_prob0=actor.evaluate(b_s[:, :state_number])
-                        # a1, log_prob1 = actor.evaluate(b_s[:, state_number:state_number*2])
-                        # a = torch.hstack((a0, a1))
-                        # log_prob=(log_prob0+log_prob1)/2
-                        # # log_prob = torch.hstack((log_prob0.mean(axis=1).unsqueeze(dim=1), log_prob1.mean(axis=1).unsqueeze(dim=1)))
-                        # q1,q2=critic.get_v(b_s,a)
-                        # q=torch.min(q1,q2)
-                        # actor_loss = (entroy.alpha * log_prob - q).mean()
-                        # actor.learn(actor_loss)
-                        # alpha_loss = -(entroy.log_alpha.exp() * (log_prob + entroy.target_entropy).detach()).mean()
-                        # entroy.learn(alpha_loss)
-                        # entroy.alpha=entroy.log_alpha.exp()
-                        # # 软更新
-                        # critic.soft_update()
-                    observation = observation_
-                    reward_totle += reward.mean()
-                    reward_totle0 += float(reward[0])
-                    reward_totle1 += float(reward[1])
-                    if RENDER:
-                        env.render()
-                    if done:
-                        break
-                print("Ep: {} rewards: {}".format(episode, reward_totle))
-                all_ep_r[k].append(reward_totle)
-                all_ep_r0[k].append(reward_totle0)
-                all_ep_r1[k].append(reward_totle1)
-                if episode % 20 == 0 and episode > 200:#保存神经网络参数
-                    save_data = {'net': actors[0].action_net.state_dict(), 'opt': actors[0].optimizer.state_dict()}
-                    torch.save(save_data, "G:\path planning\Path_SAC_actor_L1.pth")
-                    save_data = {'net': actors[1].action_net.state_dict(), 'opt': actors[1].optimizer.state_dict()}
-                    torch.save(save_data, "G:\path planning\Path_SAC_actor_F1.pth")
-            # plt.plot(np.arange(len(all_ep_r)), all_ep_r)
-            # plt.xlabel('Episode')
-            # plt.ylabel('Total reward')
-            # plt.figure(2, figsize=(8, 4), dpi=150)
-            # plt.plot(np.arange(len(all_ep_r0)), all_ep_r0)
-            # plt.xlabel('Episode')
-            # plt.ylabel('Leader reward')
-            # plt.figure(3, figsize=(8, 4), dpi=150)
-            # plt.plot(np.arange(len(all_ep_r1)), all_ep_r1)
-            # plt.xlabel('Episode')
-            # plt.ylabel('Follower reward')
-            # plt.show()
-            # env.close()
-        all_ep_r_mean = np.mean((np.array(all_ep_r)), axis=0)
-        all_ep_r_std = np.std((np.array(all_ep_r)), axis=0)
-        all_ep_L_mean = np.mean((np.array(all_ep_r0)), axis=0)
-        all_ep_L_std = np.std((np.array(all_ep_r0)), axis=0)
-        all_ep_F_mean = np.mean((np.array(all_ep_r1)), axis=0)
-        all_ep_F_std = np.std((np.array(all_ep_r1)), axis=0)
-        d = {"all_ep_r_mean": all_ep_r_mean, "all_ep_r_std": all_ep_r_std,
-             "all_ep_L_mean": all_ep_L_mean, "all_ep_L_std": all_ep_L_std,
-             "all_ep_F_mean": all_ep_F_mean, "all_ep_F_std": all_ep_F_std,}
-        f = open(shoplistfile, 'wb')  # 二进制打开，如果找不到该文件，则创建一个
-        pkl.dump(d, f, pkl.HIGHEST_PROTOCOL)  # 写入文件
-        f.close()
-        all_ep_r_max = all_ep_r_mean + all_ep_r_std * 0.95
-        all_ep_r_min = all_ep_r_mean - all_ep_r_std * 0.95
-        all_ep_L_max = all_ep_L_mean + all_ep_L_std * 0.95
-        all_ep_L_min = all_ep_L_mean - all_ep_L_std * 0.95
-        all_ep_F_max = all_ep_F_mean + all_ep_F_std * 0.95
-        all_ep_F_min = all_ep_F_mean - all_ep_F_std * 0.95
-        plt.margins(x=0)
-        plt.plot(np.arange(len(all_ep_r_mean)), all_ep_r_mean, label='MASAC', color='#e75840')
-        plt.fill_between(np.arange(len(all_ep_r_mean)), all_ep_r_max, all_ep_r_min, alpha=0.6, facecolor='#e75840')
-        plt.xlabel('Episode')
-        plt.ylabel('Total reward')
-        plt.figure(2, figsize=(8, 4), dpi=150)
-        plt.margins(x=0)
-        plt.plot(np.arange(len(all_ep_L_mean)), all_ep_L_mean, label='MASAC', color='#e75840')
-        plt.fill_between(np.arange(len(all_ep_L_mean)), all_ep_L_max, all_ep_L_min, alpha=0.6,
-                         facecolor='#e75840')
-        plt.xlabel('Episode')
-        plt.ylabel('Leader reward')
-        plt.figure(3, figsize=(8, 4), dpi=150)
-        plt.margins(x=0)
-        plt.plot(np.arange(len(all_ep_F_mean)), all_ep_F_mean, label='MASAC', color='#e75840')
-        plt.fill_between(np.arange(len(all_ep_F_mean)), all_ep_F_max, all_ep_F_min, alpha=0.6,
-                         facecolor='#e75840')
-        plt.xlabel('Episode')
-        plt.ylabel('Follower reward')
-        plt.legend()
-        plt.show()
-        env.close()
+                            # critic.soft_update()
+                        observation = observation_
+                        reward_totle += reward.mean()
+                        reward_totle0 += float(reward[0])
+                        reward_totle1 += float(reward[1])
+                        if RENDER:
+                            env.render()
+                        if done:
+                            break
+                    print("Ep: {} rewards: {}".format(episode, reward_totle))
+                    all_ep_r[k].append(reward_totle)
+                    all_ep_r0[k].append(reward_totle0)
+                    all_ep_r1[k].append(reward_totle1)
+                    if episode % 20 == 0 and episode > 200:#保存神经网络参数
+                        save_data = {'net': actors[0].action_net.state_dict(), 'opt': actors[0].optimizer.state_dict()}
+                        torch.save(save_data, "G:\path planning\Path_SAC_actor_L1.pth")
+                        save_data = {'net': actors[1].action_net.state_dict(), 'opt': actors[1].optimizer.state_dict()}
+                        torch.save(save_data, "G:\path planning\Path_SAC_actor_F1.pth")
+                # plt.plot(np.arange(len(all_ep_r)), all_ep_r)
+                # plt.xlabel('Episode')
+                # plt.ylabel('Total reward')
+                # plt.figure(2, figsize=(8, 4), dpi=150)
+                # plt.plot(np.arange(len(all_ep_r0)), all_ep_r0)
+                # plt.xlabel('Episode')
+                # plt.ylabel('Leader reward')
+                # plt.figure(3, figsize=(8, 4), dpi=150)
+                # plt.plot(np.arange(len(all_ep_r1)), all_ep_r1)
+                # plt.xlabel('Episode')
+                # plt.ylabel('Follower reward')
+                # plt.show()
+                # env.close()
+            all_ep_r_mean = np.mean((np.array(all_ep_r)), axis=0)
+            all_ep_r_std = np.std((np.array(all_ep_r)), axis=0)
+            all_ep_L_mean = np.mean((np.array(all_ep_r0)), axis=0)
+            all_ep_L_std = np.std((np.array(all_ep_r0)), axis=0)
+            all_ep_F_mean = np.mean((np.array(all_ep_r1)), axis=0)
+            all_ep_F_std = np.std((np.array(all_ep_r1)), axis=0)
+            d = {"all_ep_r_mean": all_ep_r_mean, "all_ep_r_std": all_ep_r_std,
+                 "all_ep_L_mean": all_ep_L_mean, "all_ep_L_std": all_ep_L_std,
+                 "all_ep_F_mean": all_ep_F_mean, "all_ep_F_std": all_ep_F_std,}
+            f = open(shoplistfile, 'wb')  # 二进制打开，如果找不到该文件，则创建一个
+            pkl.dump(d, f, pkl.HIGHEST_PROTOCOL)  # 写入文件
+            f.close()
+            all_ep_r_max = all_ep_r_mean + all_ep_r_std * 0.95
+            all_ep_r_min = all_ep_r_mean - all_ep_r_std * 0.95
+            all_ep_L_max = all_ep_L_mean + all_ep_L_std * 0.95
+            all_ep_L_min = all_ep_L_mean - all_ep_L_std * 0.95
+            all_ep_F_max = all_ep_F_mean + all_ep_F_std * 0.95
+            all_ep_F_min = all_ep_F_mean - all_ep_F_std * 0.95
+            plt.margins(x=0)
+            plt.plot(np.arange(len(all_ep_r_mean)), all_ep_r_mean, label='MASAC', color='#e75840')
+            plt.fill_between(np.arange(len(all_ep_r_mean)), all_ep_r_max, all_ep_r_min, alpha=0.6, facecolor='#e75840')
+            plt.xlabel('Episode')
+            plt.ylabel('Total reward')
+            plt.figure(2, figsize=(8, 4), dpi=150)
+            plt.margins(x=0)
+            plt.plot(np.arange(len(all_ep_L_mean)), all_ep_L_mean, label='MASAC', color='#e75840')
+            plt.fill_between(np.arange(len(all_ep_L_mean)), all_ep_L_max, all_ep_L_min, alpha=0.6,
+                             facecolor='#e75840')
+            plt.xlabel('Episode')
+            plt.ylabel('Leader reward')
+            plt.figure(3, figsize=(8, 4), dpi=150)
+            plt.margins(x=0)
+            plt.plot(np.arange(len(all_ep_F_mean)), all_ep_F_mean, label='MASAC', color='#e75840')
+            plt.fill_between(np.arange(len(all_ep_F_mean)), all_ep_F_max, all_ep_F_min, alpha=0.6,
+                             facecolor='#e75840')
+            plt.xlabel('Episode')
+            plt.ylabel('Follower reward')
+            plt.legend()
+            plt.show()
+            env.close()
     else:
         print('SAC测试中...')
         aa = Actor()
