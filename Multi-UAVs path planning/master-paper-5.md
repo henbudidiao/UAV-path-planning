@@ -1,4 +1,4 @@
-# 因“课题组经费有限”，信息科学中发表了论文简洁版，详细版如下
+# 因“课题组经费有限”，信息科学为简洁版，详细版如下
 <div align=center>
 <img src="https://github.com/user-attachments/assets/d1b99b19-9f20-4c0a-bea2-0af5bf4db98c">
 <img src="https://github.com/user-attachments/assets/8ef7bccc-c982-49c0-9b39-15409af78256">
@@ -13,10 +13,11 @@
 <img src="https://github.com/user-attachments/assets/eea6111b-5e3b-4986-af88-4c156a4e2971">
 <img src="https://github.com/user-attachments/assets/5bfba222-79b7-4353-92bb-89d76a4490d7">
 <img src="https://github.com/user-attachments/assets/8117fbb5-76da-405f-84c4-a38e55b5c56a">
+<img src="https://github.com/user-attachments/assets/b4c32919-1151-4c23-87eb-a69ec1cf1a8c">
 </div>
 
 未完待续……
 
-**如需引用上述内容，引用内容若不来自于《中国科学：信息科学》，则请注明来源出处，采用以下的引用格式，请勿侵权。**
+**如需引用上述文字等内容，则请注明来源出处，采用以下的引用格式，请勿侵权。**
 
 引用格式：方城亮. 基于深度强化学习的无人机武器目标分配与航路规划研究[D]. 西北工业大学, 2024.
