@@ -10,12 +10,16 @@ https://github.com/henbudidiao/UAV-path-planning/assets/64433060/713afd70-6fa0-4
 
 ## 多无人机行为分析
 
-图1以MASAC算法训练的效果为例，展示了多无人机在一个Monte Carlo测试回合中不同时刻的行为 (其中，t<sub>1</sub> < t<sub>2</sub> < t<sub>3</sub> < t<sub>4</sub> < t<sub>5</sub> < t<sub>6</sub>)。
+图5-17以MASAC算法训练的效果为例，展示了多无人机在一个Monte Carlo测试回合中不同时刻的行为 (其中，t<sub>1</sub> < t<sub>2</sub> < t<sub>3</sub> < t<sub>4</sub> < t<sub>5</sub> < t<sub>6</sub>)。
 <div align=center>
 <img src="https://github.com/user-attachments/assets/7043e8fb-7462-498d-887e-8688692fb59f" style="width:65%;height:65%;">
 <img src="https://github.com/user-attachments/assets/6bf892d9-237b-44d5-b7d4-7062cce643cc" style="width:65%;height:65%;">
 
-图1 多无人机不同时刻协同航路规划轨迹
+图5-17 多无人机不同时刻协同航路规划轨迹
 </div>
 
-如图1所示，领导者UAV、跟随者UAV、目标地点和障碍物在t<sub>1</sub>时刻初始化生成；t<sub>2</sub>时刻领导者UAV有撞上障碍物的碰撞风险，此时领导者UAV需要改变航向进行避障；t<sub>3</sub>时刻领导者UAV避障成功，跟随者UAV逐渐向领导者UAV靠近；t<sub>4</sub>时刻跟随者UAV与领导者UAV成功形成编队；t<sub>5</sub>时刻多无人机持续保持编队，并向目标地点飞行；t<sub>6</sub>时刻多无人机即将到达目标地点。显然，MASAC 算法训练后的多无人机能够在动态不确定的仿真环境中进行协同航路规划，可以在编队保持、安全避障和界内飞行的情形下到达目标地点。
+如图5-17所示，领导者UAV、跟随者UAV、目标地点和障碍物在t<sub>1</sub>时刻初始化生成；t<sub>2</sub>时刻领导者UAV有撞上障碍物的碰撞风险，此时领导者UAV需要改变航向进行避障；t<sub>3</sub>时刻领导者UAV避障成功，跟随者UAV逐渐向领导者UAV靠近；t<sub>4</sub>时刻跟随者UAV与领导者UAV成功形成编队；t<sub>5</sub>时刻多无人机持续保持编队，并向目标地点飞行；t<sub>6</sub>时刻多无人机即将到达目标地点。显然，MASAC 算法训练后的多无人机能够在动态不确定的仿真环境中进行协同航路规划，可以在编队保持、安全避障和界内飞行的情形下到达目标地点。
+
+*大伙儿可能会问：“等等，你这敌方无人机哪里来的？你给的开源代码里运行出来没有敌方无人机啊？”*
+
+*答：“这个无足轻重，《信息科学》里就是没有敌方无人机，这里的图来自大论文第五章，此处只是调用大论文里的话来更好的解释多无人机的路径规划情况。”*
