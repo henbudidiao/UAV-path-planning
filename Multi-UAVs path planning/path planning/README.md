@@ -5,7 +5,7 @@
 
 每一个模块都对应一个文件，各个文件之间的架构：首先创建一个env的文件夹，该env文件里再创建assignment文件夹、rl_env的python包和主程序模块。assignment文件夹里再创建components文件夹、source文件夹、声音图像导入模块`tools.py`和常数变量模块`constants.py`。components文件夹里存放文字信息模块`info.py`和无人机创建模块`player.py`；source文件夹是一个素材包，其中的music文件夹用来存放音乐，image文件夹用来存放图片； rl_env包里存放强化学习环境模块`path_env.py`。创建好后的架构如下图所示：
 <div align=center>
-<img src="https://github.com/user-attachments/assets/091ed2b4-6aa8-4fe9-931d-69a4d1860f78">
+<img src="https://github.com/user-attachments/assets/10052039-51e1-4f27-96c5-bbe8843869df">
 
 图1 软件结构界面
 </div>
@@ -30,7 +30,7 @@
 
 代码用法：先把Switch标志位赋为0，先训练。训练时，建议将RENDER标志位赋为False，关闭可视化可以让训练时间大大缩短。等待训练结束后画出奖励随回合数的曲线图形，神经网络的参数会被保存在env文件夹中。然后，把Switch标志为赋为1进行路径规划的测试。测试时，将RENDER标志位赋为True即可打开可视化，可以看到无人机在空战环境中的运动情况。
 
-在运行了`main_SAC.py`文件后，电脑桌面会弹出软件的战斗界面。如图2所示：
+在运行了`main_SAC.py`文件后，电脑桌面会弹出软件的战斗界面。如图4所示：
 <div align=center>
 <img src="https://github.com/user-attachments/assets/70a47de1-0ea8-46b3-9884-94f22e8abeda">
 
