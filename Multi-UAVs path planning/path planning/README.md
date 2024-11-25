@@ -44,3 +44,4 @@
 `plot.py`文件中存放了所有的画图代码，文件中有代码注解。注释的代码请自行解注，以根据自己的需要生成。
 
 ***不久之后我会出一个视频教程，大伙可以github代码配合视频讲解一并服用，包药到病除，效果更佳哦~~ :smiley:***
+24年11月26日，视屏已出，地址请见： https://www.bilibili.com/video/BV1FUBHYNE9u/?vd_source=b94eb1c3a80dbcc148ebec37b6e5ff87
