@@ -1,4 +1,4 @@
-README: [中文](https://github.com/henbudidiao/UAV-path-planning/blob/main/README.md) | [English](https://github.com/henbudidiao/UAV-path-planning/blob/main/README_EN.md)
+README: [中文](https://github.com/henbudidiao/UAV-path-planning/blob/main/README.md) | [English](https://github.com/henbudidiao/UAV-path-planning/blob/main/README_ENG.md)
 
 **Tip**：点击下图可进入到我的个人网站(づ◡ど)，您之前不会没发现吧😂
 
