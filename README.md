@@ -1,10 +1,8 @@
 README: [中文](https://github.com/henbudidiao/UAV-path-planning/blob/main/README.md) | [English](https://github.com/henbudidiao/UAV-path-planning/blob/main/README_ENG.md)
 
-**Tip**：点击下图可进入到我的个人网站(づ◡ど)，您之前不会没发现吧😂
-
 <a href="https://henbudidiao.github.io/">
 <div align=center>
-<img src="https://github.com/henbudidiao/UAV-path-planning/assets/64433060/5182ed12-a0d3-4a69-b0ae-e90552b02f9b" width="70%" height="70%">
+<img src="https://github.com/henbudidiao/UAV-path-planning/assets/64433060/5182ed12-a0d3-4a69-b0ae-e90552b02f9b" width="70%" height="70%" title="点击下图可进入到我的个人网站(づ◡ど)，您之前不会没发现吧😂">
 </div>
 </a>
 
