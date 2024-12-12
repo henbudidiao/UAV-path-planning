@@ -12,7 +12,7 @@ README: [English](https://github.com/henbudidiao/UAV-path-planning/blob/main/REA
 ## About author→<a href="https://henbudidiao.github.io/" >🤡</a>←
 <a href="https://henbudidiao.github.io/">
 <div align=center>
-<img src="https://github.com/henbudidiao/UAV-path-planning/assets/64433060/5182ed12-a0d3-4a69-b0ae-e90552b02f9b" width="70%" height="70%">
+<img src="https://github.com/henbudidiao/UAV-path-planning/assets/64433060/5182ed12-a0d3-4a69-b0ae-e90552b02f9b" width="70%" height="70%" title="Click on this image to enter my personal website (づ◡ど), you may have noticed it before, right😂">
 </div>
 </a>
 
