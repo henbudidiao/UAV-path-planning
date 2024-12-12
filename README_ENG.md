@@ -16,6 +16,19 @@ README: [English](https://github.com/henbudidiao/UAV-path-planning/blob/main/REA
 </div>
 </a>
 
+## How to use
+Here is a video tutorial: 
+
+https://www.bilibili.com/video/BV1FUBHYNE9u/?vd_source=b94eb1c3a80dbcc148ebec37b6e5ff87
+
+## Dependencies
+* Pygame: 2.1.2
+* Gym: 0.19.0
+* Pytorch: 1.10.0+cu113
+* Numpy: 1.23.1
+* Pickle/ or Pickle4/ or Pickle5. (If it still doesn't work, it doesn't matter, just delete all the places where pickle is used)
+
+Ensure version consistency. You can install them using [pip](https://pip.pypa.io/en/stable/).
 ## Contributing
 * Please feel free to create a Pull Request for adding  improvements. If you are a beginner, you can refer to this for getting started.
 
