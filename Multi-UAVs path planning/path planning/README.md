@@ -45,4 +45,4 @@
 
 ***不久之后我会出一个视频教程，大伙可以github代码配合视频讲解一并服用，包药到病除，效果更佳哦~~ :smiley:***
 
-24年11月26日，视屏已出（上集），地址请见： https://www.bilibili.com/video/BV1FUBHYNE9u/?vd_source=b94eb1c3a80dbcc148ebec37b6e5ff87
+24年12月15日，视屏已出（上集&&下集），地址请见： https://www.bilibili.com/video/BV1FUBHYNE9u/?vd_source=b94eb1c3a80dbcc148ebec37b6e5ff87
