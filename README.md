@@ -12,5 +12,5 @@ Language: [中文](https://github.com/henbudidiao/UAV-path-planning/blob/main/RE
 3. 24年12月15日0:38留言，视频教程已出（上集 and 下集），建议新手小白们看github代码时配合视频一起服用，效果更加呦~~~ :smiley:，视频地址请见： https://www.bilibili.com/video/BV1FUBHYNE9u/?vd_source=b94eb1c3a80dbcc148ebec37b6e5ff87
 
 # 二、 《基于最大熵安全强化学习的无人机路径规划》
-1. 代码：如果您来自论文《基于最大熵安全强化学习的无人机路径规划》，请看文件“Single UAV path planning”，该文件目前仅放了无人机路径规划的视频演示。代码开源时间预计：7天后~2026年之间。
+1. 代码：如果您来自论文《基于最大熵安全强化学习的无人机路径规划》，请看文件“Single UAV path planning”。
 2. 引用格式：杨飞生, 方城亮, 梁睿桀. 基于最大熵安全强化学习的无人机路径规划[C]. 国际制导、导航与控制学术会议, 2024.
