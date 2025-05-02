@@ -17,8 +17,7 @@ Language: [English](https://github.com/henbudidiao/UAV-path-planning/blob/main/R
 </a>
 
 ## How to use
-Here is a video tutorial: 
-
+Here is a video tutorial about multi-agent: 
 https://www.bilibili.com/video/BV1FUBHYNE9u/?vd_source=b94eb1c3a80dbcc148ebec37b6e5ff87
 
 ## Dependencies
@@ -33,4 +32,4 @@ Ensure version consistency. You can install them using [pip](https://pip.pypa.io
 * Please feel free to create a Pull Request for adding  improvements. If you are a beginner, you can refer to this for getting started.
 
 ## Support
-* If you found this useful, please consider starring(★) the repo so that it can reach a broader audience.
+* If you found this useful, please consider starring(★) the repo so that it can reach a broader audience :kissing_heart:.
