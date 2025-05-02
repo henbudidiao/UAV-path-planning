@@ -5,7 +5,7 @@ Language: [English](https://github.com/henbudidiao/UAV-path-planning/blob/main/R
 * Citation: Fang C, Yang F, Pan Q. Multi-UAV collaborative path planning based on multi-agent soft actor critic (in Chinese)[J]. SCIENTIA SINICA Informationis, 2024, 54(8): 1871-1883.
 * Message on December 15th, 2024 at 0:40, tutorial video has been released. I suggest that beginners and novices take it together with the video when watching GitHub code for better results :smiley:. Please refer to the video address: https://www.bilibili.com/video/BV1FUBHYNE9u/?vd_source=b94eb1c3a80dbcc148ebec37b6e5ff87
 # 2. < UAV path planning based on maximum entropy safe reinforcement learning >
-* Code: If you are from the paper 'UAV path planning based on maximum entropy safe reinforcement learning', please refer to the file 'Single UAV Path Planning', which currently only shows a video demonstration of UAV path planning. Expected open source time for the code: between 7 days to 2026.
+* Code: If you are from the paper 'UAV path planning based on maximum entropy safe reinforcement learning', please refer to the file 'Single UAV Path Planning'.
 * Citation: Yang F, Fang C, and Liang R. UAV path planning based on maximum entropy safe reinforcement learning[C]. The International Conference on Guidance, Navigation and Control, 2024.
 ## Framework
 * PyTorch framework
