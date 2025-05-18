@@ -13,10 +13,8 @@ https://github.com/henbudidiao/UAV-path-planning/assets/64433060/42e9c7b4-6b6c-4
 
 图4-11以SAC算法训练的效果为例，展示了己方UAV在一个Monte Carlo测试回合中不同时刻的行为(其中，t<sub>1</sub> < t<sub>2</sub> < t<sub>3</sub> < t<sub>4</sub> < t<sub>5</sub> < t<sub>6</sub>)。
 <div align=center>
-  ![image](https://github.com/user-attachments/assets/3aad355d-9587-40f0-ac6d-80da9b014114)
-
-<img src="https://github.com/user-attachments/assets/c38ad3fa-58a8-4503-a805-fea3541f5dc3" style="width:65%;height:65%;">
-<img src="https://github.com/user-attachments/assets/6bf892d9-237b-44d5-b7d4-7062cce643cc" style="width:65%;height:65%;">
+<img src="https://github.com/user-attachments/assets/3aad355d-9587-40f0-ac6d-80da9b014114" style="width:65%;height:65%;">
+<img src="https://github.com/user-attachments/assets/eab6fe98-1377-42a0-8c7c-4a7c3c223557" style="width:65%;height:65%;">
 
 图4-11 单无人机不同时刻航路规划轨迹
 </div>
