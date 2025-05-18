@@ -14,3 +14,12 @@ Language: [中文](https://github.com/henbudidiao/UAV-path-planning/blob/main/RE
 # 二、 《基于最大熵安全强化学习的无人机路径规划》
 1. 代码：如果您来自论文《基于最大熵安全强化学习的无人机路径规划》，请看文件“Single UAV path planning”。
 2. 引用格式：杨飞生, 方城亮, 梁睿桀. 基于最大熵安全强化学习的无人机路径规划[C]. 国际制导、导航与控制学术会议, 2024.
+
+## 框架
+PyTorch 框架
+
+## 如何使用
+这里有一个关于多无人机路径规划的视频教程，github代码配合视频教程，效果更佳~~:smiley:: 
+https://www.bilibili.com/video/BV1FUBHYNE9u/?vd_source=b94eb1c3a80dbcc148ebec37b6e5ff87
+
+## 依赖包
