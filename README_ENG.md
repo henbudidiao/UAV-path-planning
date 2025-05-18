@@ -1,4 +1,4 @@
-Language: [English](https://github.com/henbudidiao/UAV-path-planning/blob/main/README_ENG.md) | [中文](https://github.com/henbudidiao/UAV-path-planning/blob/main/README.md)
+Language: [English](https://github.com/henbudidiao/UAV-path-planning/blob/main/README_ENG.md) | [简体中文](https://github.com/henbudidiao/UAV-path-planning/blob/main/README.md)
 
 # 1. <[Multi-UAV collaborative path planning based on multi-agent soft actor critic](https://doi.org/10.1360/SSI-2024-0050)>
 * Code: If you are from the paper 'Multi-UAV collaborative path planning based on multi-agent soft actor critic', please refer to the file 'Multi UAVs Path Planning'.
