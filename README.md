@@ -19,7 +19,25 @@ Language: [中文](https://github.com/henbudidiao/UAV-path-planning/blob/main/RE
 PyTorch 框架
 
 ## 如何使用
-这里有一个关于多无人机路径规划的视频教程，github代码配合视频教程，效果更佳~~:smiley:: 
+这里有一个关于多无人机路径规划的视频教程，github代码配合视频教程，效果更佳~~: 
+
 https://www.bilibili.com/video/BV1FUBHYNE9u/?vd_source=b94eb1c3a80dbcc148ebec37b6e5ff87
 
 ## 依赖包
+|依赖包|版本|
+|--|--|
+| Pygame | 2.1.2 |
+| Gym | 0.19.0 |
+| Pytorch | 1.10.0+cu113 |
+| Numpy | 1.23.1 |
+| Pickle| 找不到可用Pickle4或Pickle5代替|
+
+## 致谢
+* 无人机路径规划的代码是站在巨人肩膀上完成的，在此，对讲解强化学习算法的<a href="https://www.bilibili.com/video/BV13W411Y75P/?spm_id_from=333.337.search-card.all.click&vd_source=b94eb1c3a80dbcc148ebec37b6e5ff87">莫烦老师</a>和<a href="https://www.bilibili.com/video/BV1yv411i7xd/?spm_id_from=333.337.search-card.all.click&vd_source=b94eb1c3a80dbcc148ebec37b6e5ff87">百度世界冠军团队</a>表示感谢，对Pygame、Gym、Pytorch等库的作者们及其开源社区表示感谢。
+* 无人机路径规划的环境搭建，其代码框架的设计借鉴了B站up主<a href="https://www.bilibili.com/video/BV1G54y197C2/?spm_id_from=333.337.search-card.all.click&vd_source=b94eb1c3a80dbcc148ebec37b6e5ff87">趣派编程</a>的马里奥复现，这使得此代码更模块化、更具封装性。感谢此视频给予的灵感，否则，真要一个main函数main到底了😂。
+
+## 贡献
+* 才学浅陋，拙作呈上，不足之处，请随意创建留言、提问与请求。
+
+## 支持
+* 如果您觉得这是有帮助萌新小白的，可以给此仓库点个星(★)，以致于它能让更多人看到🥰。
