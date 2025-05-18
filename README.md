@@ -1,4 +1,4 @@
-Language: [中文](https://github.com/henbudidiao/UAV-path-planning/blob/main/README.md) | [English](https://github.com/henbudidiao/UAV-path-planning/blob/main/README_ENG.md)
+Language: [简体中文](https://github.com/henbudidiao/UAV-path-planning/blob/main/README.md) | [English](https://github.com/henbudidiao/UAV-path-planning/blob/main/README_ENG.md)
 
 <a href="https://henbudidiao.github.io/">
 <div align=center>
