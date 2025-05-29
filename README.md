@@ -37,7 +37,7 @@ https://www.bilibili.com/video/BV1FUBHYNE9u/?vd_source=b94eb1c3a80dbcc148ebec37b
 * 无人机路径规划的环境搭建，其代码框架的设计借鉴了B站up主<a href="https://www.bilibili.com/video/BV1G54y197C2/?spm_id_from=333.337.search-card.all.click&vd_source=b94eb1c3a80dbcc148ebec37b6e5ff87">趣派编程</a>的马里奥复现，这使得此代码更模块化、更具封装性。感谢此视频给予的灵感，否则，真要一个main函数main到底了😂。
 
 ## 贡献
-* 才疏学线，拙作呈上，不足之处，请随意创建留言、提问与请求。
+* 拙作呈上，不足之处，请随意创建留言、提问与请求。
 
 ## 支持
-* 如果您觉得这个仓库很有用、有帮到你，可以考虑给它点个星(★)，以致于此仓库能让更多人看到、帮到更多人🤣👉🤡👈🤣。
+* 如果您觉得这个仓库很有用、有帮到你，可以考虑给它点个星(★)，以致于此仓库能让更多受众看到。
