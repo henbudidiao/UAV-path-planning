@@ -29,10 +29,12 @@ https://www.bilibili.com/video/BV1jkgZzKEe1/?spm_id_from=333.1387.homepage.video
 ## 依赖包
 |依赖包|版本|
 |--|--|
+| Python | 3.8 |
 | Pygame | 2.1.2 |
 | Gym | 0.19.0 |
 | Pytorch | 1.10.0+cu113 |
 | Numpy | 1.23.1 |
+| Matplotlib | 3.5.1 |
 | Pickle| 找不到可用Pickle4或Pickle5代替|
 
 ## 致谢
