@@ -23,6 +23,9 @@ PyTorch 框架
 
 https://www.bilibili.com/video/BV1FUBHYNE9u/?vd_source=b94eb1c3a80dbcc148ebec37b6e5ff87
 
+还有一个关于单无人机路径规划的视频教程~~: 
+
+https://www.bilibili.com/video/BV1jkgZzKEe1/?spm_id_from=333.1387.homepage.video_card.click&vd_source=b94eb1c3a80dbcc148ebec37b6e5ff87
 ## 依赖包
 |依赖包|版本|
 |--|--|
