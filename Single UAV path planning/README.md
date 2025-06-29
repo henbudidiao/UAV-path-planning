@@ -1,9 +1,10 @@
 # Single UAV path planning based deep reinforcement learning
 
-话不多说，作者我开始这项工作的目的可就是奔着开源去的，如果这项研究工作能帮助到后来的学者、读者、萌新小白，那这就是这篇文章留存世间的唯一意义，也是我存在的意义！
+25年6月29日，上集视频已出，路径：https://www.bilibili.com/video/BV1jkgZzKEe1/?spm_id_from=333.1387.homepage.video_card.click&vd_source=b94eb1c3a80dbcc148ebec37b6e5ff87
+
+下集视频正在制作中，预计时间：一周到一年之间。
 
 视频演示如下：
-
 
 https://github.com/henbudidiao/UAV-path-planning/assets/64433060/42e9c7b4-6b6c-4e59-959e-f91b99687740
 
