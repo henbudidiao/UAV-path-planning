@@ -1,8 +1,8 @@
 # Single UAV path planning based deep reinforcement learning
 
-25年6月29日，上集视频已出，路径：https://www.bilibili.com/video/BV1jkgZzKEe1/?spm_id_from=333.1387.homepage.video_card.click&vd_source=b94eb1c3a80dbcc148ebec37b6e5ff87
+25年6月29日，上集视频教程已出，路径：https://www.bilibili.com/video/BV1jkgZzKEe1/?spm_id_from=333.1387.homepage.video_card.click&vd_source=b94eb1c3a80dbcc148ebec37b6e5ff87
 
-下集视频正在制作中...预计时间：一周到一年之间。 。 。 。
+下集视频讲解教程正在制作中...预计时间：一周到一年之间。 。 。 。
 
 视频演示如下：
 
