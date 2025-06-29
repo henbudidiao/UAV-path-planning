@@ -20,6 +20,9 @@ Language: [English](https://github.com/henbudidiao/UAV-path-planning/blob/main/R
 Here is a video tutorial about multi-agent: 
 https://www.bilibili.com/video/BV1FUBHYNE9u/?vd_source=b94eb1c3a80dbcc148ebec37b6e5ff87
 
+Signal UAV:
+https://www.bilibili.com/video/BV1jkgZzKEe1/?spm_id_from=333.1387.homepage.video_card.click&vd_source=b94eb1c3a80dbcc148ebec37b6e5ff87
+
 ## Dependencies
 * Pygame: 2.1.2
 * Gym: 0.19.0
